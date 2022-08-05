@@ -18,7 +18,7 @@ sign_verification = {"domain": {
     "chainId": 4,
     "verifyingContract": weavr.address
 },
-    "primaryType": 'KYCVerification',
+    "primaryType": 'Vouch',
     "types": {
         'EIP712Domain': [
             {'name': 'name', 'type': 'string'},
@@ -26,11 +26,8 @@ sign_verification = {"domain": {
             {'name': 'chainId', 'type': 'uint256'},
             {'name': 'verifyingContract', 'type': 'address'}
         ],
-        "KYCVerification": [
-            {"type": "uint8", "name": "participantType"},
+        "Vouch": [
             {"type": "address", "name": "participant"},
-            {"type": "bytes32", "name": "kyc"},
-            {"type": "uint256", "name": "nonce"}
         ]
     }
 }
