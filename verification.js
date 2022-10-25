@@ -1,4 +1,4 @@
-const { ethers } = require("hardhat");
+const { ethers } = require("ethers");
 
 
 function sign(signer, data, signatureData) {
