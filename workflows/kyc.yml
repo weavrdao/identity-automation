@@ -15,10 +15,12 @@ jobs:
 
       - name: Install Python, pipenv and Pipfile packages
         uses: palewire/install-python-pipenv-pipfile@v2
-        run:
-          - sudo apt install python3-pip
-          - pip install web3==5.31.1
-          - pip install eth_account==0.6.1
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          pip install web3==5.31.1
+          pip install eth_account==0.6.1
       - name: Record
         run:
-          python automation/verification.py $body
+          python $WORKSPACE/automation/verification.py $body
