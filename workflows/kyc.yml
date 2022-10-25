@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: install deps
-        run: npm install 5.7.2@5.7.2
+        run: npm install ethers@5.7.2
       - name: Record
         run:
           node $GITHUB_WORKSPACE/verification.js $body
