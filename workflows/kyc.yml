@@ -14,4 +14,4 @@ jobs:
         uses: actions/checkout@v2
       - name: Record
         run:
-          node $WORKSPACE/verification.js $body
+          node $GITHUB_WORKSPACE/verification.js $body
