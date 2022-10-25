@@ -11,8 +11,6 @@ jobs:
       - name: Install Python, pipenv and Pipfile packages
         run:
           sudo apt install python3-pip
-          pip install web3==5.31.1
-          pip install eth_account==0.6.1
       - name: Record
         env:
           WEAVR_ADDRESS: "0x43240c0f5dedb375afd28206e02110e8fed8cFc0"
