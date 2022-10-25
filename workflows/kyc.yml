@@ -11,6 +11,5 @@ jobs:
       PRIVATE_KEY: ${{ secrets.private_key }}
     steps:
       - name: Record
-        env:
         run:
           npx run $BODY
