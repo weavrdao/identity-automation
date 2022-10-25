@@ -42,9 +42,7 @@ if (require.main === module) {
         const PARTICIPANT_ID = response['applicantId'];
         const PARTICIPANT = "0x" + response['externalUserId'];
         const status = response['reviewResult']['reviewAnswer'];
-        if(status !== "GREEN"){
-            console.log("Not verified");
-        } else {
+        if(status === "GREEN"){
 
 
             const participantId = ethers.identity(PARTICIPANT_ID);
@@ -75,6 +73,8 @@ if (require.main === module) {
             const tx = await weavr.approve(ptype, PARTICIPANT, participantId, signature).wait();
             console.log("Transaction receipt");
             console.log(tx);
+        } else {
+            console.log("Not verified, reverting...");
         }
     })().catch(error => {
         console.error(error);
