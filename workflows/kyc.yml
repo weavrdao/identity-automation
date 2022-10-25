@@ -6,19 +6,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       WEAVR_ADDRESS: "0x43240c0f5dedb375afd28206e02110e8fed8cFc0"
-      NODE_ENDPOINT: "wss://arbitrum-mainnet.infura.io/ws/v3/10f965a85be14e40b1b7bb000a7be036"
+      PROVIDER: "wss://arbitrum-mainnet.infura.io/ws/v3/10f965a85be14e40b1b7bb000a7be036"
       body: ${{ toJson(on.webhook.outputs.body) }}
       PRIVATE_KEY: ${{ secrets.private_key }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: install python
-        run: |
-          apt-get update
-          apt-get install -y python3-setuptools
-          easy_install3 pip
-          python -m pip install web3==5.31.1
-          python -m pip install eth_account==0.6.1
       - name: Record
         run:
-          /usr/local/bin/python $WORKSPACE/automation/verification.py $body
+          node $WORKSPACE/verification.js $body

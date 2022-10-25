@@ -1,4 +1,4 @@
-frabric_abi = [
+[
   {
     "inputs": [],
     "stateMutability": "nonpayable",
@@ -486,28 +486,28 @@ frabric_abi = [
     "type": "error"
   },
   {
-    "anonymous": False,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "uint256",
         "name": "id",
         "type": "uint256"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "address",
         "name": "participant",
         "type": "address"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "bool",
         "name": "slash",
         "type": "bool"
       },
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "uint256",
         "name": "amount",
         "type": "uint256"
@@ -517,10 +517,10 @@ frabric_abi = [
     "type": "event"
   },
   {
-    "anonymous": False,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "uint8",
         "name": "version",
         "type": "uint8"
@@ -530,16 +530,16 @@ frabric_abi = [
     "type": "event"
   },
   {
-    "anonymous": False,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "address",
         "name": "kyc",
         "type": "address"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "address",
         "name": "participant",
         "type": "address"
@@ -549,16 +549,16 @@ frabric_abi = [
     "type": "event"
   },
   {
-    "anonymous": False,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "enum IFrabric.ParticipantType",
         "name": "participantType",
         "type": "uint8"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "address",
         "name": "participant",
         "type": "address"
@@ -568,28 +568,28 @@ frabric_abi = [
     "type": "event"
   },
   {
-    "anonymous": False,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "uint256",
         "name": "id",
         "type": "uint256"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "enum IFrabric.ParticipantType",
         "name": "participantType",
         "type": "uint8"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "address",
         "name": "proposer",
         "type": "address"
       },
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "address",
         "name": "participant",
         "type": "address"
@@ -599,22 +599,22 @@ frabric_abi = [
     "type": "event"
   },
   {
-    "anonymous": False,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "uint256",
         "name": "id",
         "type": "uint256"
       },
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "address",
         "name": "participant",
         "type": "address"
       },
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "uint8",
         "name": "fee",
         "type": "uint8"
@@ -624,34 +624,34 @@ frabric_abi = [
     "type": "event"
   },
   {
-    "anonymous": False,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "uint256",
         "name": "id",
         "type": "uint256"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "uint256",
         "name": "proposalType",
         "type": "uint256"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "address",
         "name": "creator",
         "type": "address"
       },
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "bool",
         "name": "supermajority",
         "type": "bool"
       },
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "bytes32",
         "name": "info",
         "type": "bytes32"
@@ -661,16 +661,16 @@ frabric_abi = [
     "type": "event"
   },
   {
-    "anonymous": False,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "uint256",
         "name": "id",
         "type": "uint256"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "enum IDAOCore.ProposalState",
         "name": "state",
         "type": "uint8"
@@ -680,46 +680,46 @@ frabric_abi = [
     "type": "event"
   },
   {
-    "anonymous": False,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "uint256",
         "name": "id",
         "type": "uint256"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "uint256",
         "name": "variant",
         "type": "uint256"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "address",
         "name": "governor",
         "type": "address"
       },
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "string",
         "name": "name",
         "type": "string"
       },
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "string",
         "name": "symbol",
         "type": "string"
       },
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "bytes32",
         "name": "descriptor",
         "type": "bytes32"
       },
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "bytes",
         "name": "data",
         "type": "bytes"
@@ -729,28 +729,28 @@ frabric_abi = [
     "type": "event"
   },
   {
-    "anonymous": False,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "uint256",
         "name": "id",
         "type": "uint256"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "address",
         "name": "thread",
         "type": "address"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "uint256",
         "name": "proposalType",
         "type": "uint256"
       },
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "bytes32",
         "name": "info",
         "type": "bytes32"
@@ -760,40 +760,40 @@ frabric_abi = [
     "type": "event"
   },
   {
-    "anonymous": False,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "uint256",
         "name": "id",
         "type": "uint256"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "address",
         "name": "token",
         "type": "address"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "address",
         "name": "target",
         "type": "address"
       },
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "bool",
         "name": "mint",
         "type": "bool"
       },
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "uint256",
         "name": "price",
         "type": "uint256"
       },
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "uint256",
         "name": "amount",
         "type": "uint256"
@@ -803,40 +803,40 @@ frabric_abi = [
     "type": "event"
   },
   {
-    "anonymous": False,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "uint256",
         "name": "id",
         "type": "uint256"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "address",
         "name": "beacon",
         "type": "address"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "address",
         "name": "instance",
         "type": "address"
       },
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "uint256",
         "name": "version",
         "type": "uint256"
       },
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "address",
         "name": "code",
         "type": "address"
       },
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "bytes",
         "name": "data",
         "type": "bytes"
@@ -846,28 +846,28 @@ frabric_abi = [
     "type": "event"
   },
   {
-    "anonymous": False,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "uint256",
         "name": "id",
         "type": "uint256"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "enum IDAO.VoteDirection",
         "name": "direction",
         "type": "uint8"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "address",
         "name": "voter",
         "type": "address"
       },
       {
-        "indexed": False,
+        "indexed": false,
         "internalType": "uint112",
         "name": "votes",
         "type": "uint112"
@@ -877,16 +877,16 @@ frabric_abi = [
     "type": "event"
   },
   {
-    "anonymous": False,
+    "anonymous": false,
     "inputs": [
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "address",
         "name": "voucher",
         "type": "address"
       },
       {
-        "indexed": True,
+        "indexed": true,
         "internalType": "address",
         "name": "vouchee",
         "type": "address"
