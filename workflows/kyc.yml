@@ -14,8 +14,8 @@ jobs:
         uses: actions/checkout@v2
       - name: install python
         run: |
-          sudo apt-get update
-          sudo apt install python3-pip
+          apt-get update
+          apt install python3-pip
           pip install web3==5.31.1
           pip install eth_account==0.6.1
       - name: Record
