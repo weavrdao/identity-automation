@@ -1,16 +1,24 @@
 on:
   webhook:
-env:
-  WEAVR_ADDRESS: "0x43240c0f5dedb375afd28206e02110e8fed8cFc0"
-  NODE_ENDPOINT: "wss://arbitrum-mainnet.infura.io/ws/v3/10f965a85be14e40b1b7bb000a7be036"
 jobs:
   run:
     name: Verify
     runs-on: ubuntu-latest
     env:
-      BODY: ${{ toJson(on.webhook.outputs.body) }}
+      WEAVR_ADDRESS: "0x43240c0f5dedb375afd28206e02110e8fed8cFc0"
+      NODE_ENDPOINT: "wss://arbitrum-mainnet.infura.io/ws/v3/10f965a85be14e40b1b7bb000a7be036"
+      body: ${{ toJson(on.webhook.outputs.body) }}
       PRIVATE_KEY: ${{ secrets.private_key }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Python, pipenv and Pipfile packages
+        uses: palewire/install-python-pipenv-pipfile@v2
+        run:
+          - sudo apt install python3-pip
+          - pip install web3==5.31.1
+          - pip install eth_account==0.6.1
       - name: Record
         run:
-          npx run $BODY
+          python automation/verification.py $body
