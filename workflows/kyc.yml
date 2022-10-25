@@ -7,7 +7,7 @@ jobs:
     env:
       WEAVR_ADDRESS: "0x43240c0f5dedb375afd28206e02110e8fed8cFc0"
       PROVIDER: "wss://arbitrum-mainnet.infura.io/ws/v3/10f965a85be14e40b1b7bb000a7be036"
-      body: ${{ toJson(on.webhook.outputs.body) }}
+      BODY: ${{ toJson(on.webhook.outputs.body) }}
       PRIVATE_KEY: ${{ secrets.private_key }}
     steps:
       - name: Checkout
@@ -16,4 +16,4 @@ jobs:
         run: npm install ethers@5.7.2
       - name: Record
         run:
-          node $GITHUB_WORKSPACE/verification.js $body
+          node $GITHUB_WORKSPACE/verification.js

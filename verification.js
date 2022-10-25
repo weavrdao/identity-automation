@@ -30,7 +30,7 @@ function getSignature(signer, participant, ptype, kycHash, nonce, signatureData)
 if (require.main === module) {
     (async () => {
 
-        const body = process.argv.slice(2);
+        const body = process.env.BODY;
         const WEAVR_ADDRESS = process.env.WEAVR_ADDRESS;
         const PROVIDER = process.env.PROVIDER;
         const PRIVATE_KEY = process.env.PRIVATE_KEY;
@@ -38,7 +38,6 @@ if (require.main === module) {
 
         const provider = ethers.providers.getDefaultProvider(PROVIDER);
         const signer = new ethers.Wallet(PRIVATE_KEY, provider);
-
         const response = JSON.parse(body);
         const PARTICIPANT_ID = response['applicantId'];
         const PARTICIPANT = "0x" + response['externalUserId'];
