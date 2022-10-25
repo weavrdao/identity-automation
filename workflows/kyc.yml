@@ -1,16 +1,11 @@
 on:
   webhook:
 jobs:
-  print:
     name: Verify
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Install Python, pipenv and Pipfile packages
-        run:
-          sudo apt install python3-pip
       - name: Record
         env:
           WEAVR_ADDRESS: "0x43240c0f5dedb375afd28206e02110e8fed8cFc0"
@@ -18,4 +13,4 @@ jobs:
           body: ${{ toJson(on.webhook.outputs.body) }}
           PRIVATE_KEY: ${{ secrets.private_key }}
         run:
-          python $GITHUB_WORKSPACE/automation/verification.py $body
+          npx run $body
