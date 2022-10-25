@@ -15,8 +15,8 @@ jobs:
       - name: install python
         run: |
           apt-get update
-          apt install -y python3-pip
-          python -m install pip
+          apt-get install python3-setuptools
+          easy_install3 pip
           python -m pip install web3==5.31.1
           python -m pip install eth_account==0.6.1
       - name: Record
