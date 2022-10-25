@@ -16,8 +16,9 @@ jobs:
         run: |
           apt-get update
           apt install -y python3-pip
-          /usr/local/bin/pip install web3==5.31.1
-          /usr/local/bin/pip install eth_account==0.6.1
+          python -m install pip
+          python -m pip install web3==5.31.1
+          python -m pip install eth_account==0.6.1
       - name: Record
         run:
           /usr/local/bin/python $WORKSPACE/automation/verification.py $body
