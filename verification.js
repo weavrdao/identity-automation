@@ -30,7 +30,7 @@ function getSignature(signer, participant, ptype, kycHash, nonce, signatureData)
 if (require.main === module) {
     (async () => {
 
-        const body = process.argv.slice(2)[0];
+        const body = process.argv.slice(2);
         const WEAVR_ADDRESS = process.env.WEAVR_ADDRESS;
         const PROVIDER = process.env.PROVIDER;
         const PRIVATE_KEY = process.env.PRIVATE_KEY;
