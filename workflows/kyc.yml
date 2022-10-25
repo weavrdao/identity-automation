@@ -13,6 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         run: |
+          sudo apt-get update
           sudo apt install python3-pip
           pip install web3==5.31.1
           pip install eth_account==0.6.1
