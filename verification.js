@@ -44,39 +44,38 @@ if (require.main === module) {
         const status = response['reviewResult']['reviewAnswer'];
         if(status !== "GREEN"){
             console.log("Not verified");
-            return;
+        } else {
+
+
+            const participantId = ethers.identity(PARTICIPANT_ID);
+
+            const WEAVR_CONTRACT = await ethers.getContractFactory("weavr.json");
+            const weavr = await Weavr.attach(WEAVR_CONTRACT);
+            let signatureData = [
+                {
+                    name: "Weavr Protocol",
+                    version: "1",
+                    chainId: 42161,
+                    verifyingContract: WEAVR_ADDRESS
+                },
+                {
+                    Vouch: [
+                        {type: "address", name: "participant"}
+                    ],
+                    KYCVerification: [
+                        {type: "uint8", name: "participantType"},
+                        {type: "address", name: "participant"},
+                        {type: "bytes32", name: "kyc"},
+                        {type: "uint256", name: "nonce"}
+                    ]
+                }
+            ];
+            const ptype = 6;
+            const signature = await getSignature(signer, PARTICIPANT, ptype, participantId, 0, signatureData);
+            const tx = await weavr.approve(ptype, PARTICIPANT, participantId, signature).wait();
+            console.log("Transaction receipt");
+            console.log(tx);
         }
-
-
-
-        const participantId = ethers.identity(PARTICIPANT_ID);
-
-        const WEAVR_CONTRACT = await ethers.getContractFactory("weavr.json");
-        const weavr = await Weavr.attach(WEAVR_CONTRACT);
-        let signatureData = [
-            {
-                name: "Weavr Protocol",
-                version: "1",
-                chainId: 42161,
-                verifyingContract: WEAVR_ADDRESS
-            },
-            {
-                Vouch: [
-                    { type: "address", name: "participant" }
-                ],
-                KYCVerification: [
-                    { type: "uint8",   name: "participantType" },
-                    { type: "address", name: "participant" },
-                    { type: "bytes32", name: "kyc" },
-                    { type: "uint256", name: "nonce" }
-                ]
-            }
-        ];
-        const ptype = 6;
-        const signature = await getSignature(signer, PARTICIPANT, ptype, participantId, 0, signatureData);
-        const tx = await weavr.approve(ptype, PARTICIPANT, participantId, signature).wait();
-        console.log("Transaction receipt");
-        console.log(tx);
     })().catch(error => {
         console.error(error);
         process.exit(1);
