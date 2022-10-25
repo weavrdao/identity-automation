@@ -12,12 +12,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - uses: actions/setup-python@v3
-        with:
-          python-version: '3.7.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
-          architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
-      - name: Install dependencies
         run: |
+          sudo apt install python3-pip
           pip install web3==5.31.1
           pip install eth_account==0.6.1
       - name: Record
