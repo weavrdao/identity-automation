@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: install python
         run: |
           sudo apt-get update
           sudo apt install python3-pip
