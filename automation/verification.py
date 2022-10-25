@@ -1,24 +1,30 @@
 import web3.eth
+import sys
+import json
+import os
 from web3 import Web3
 from abis.frabric import frabric_abi
 from eth_account.messages import encode_structured_data
 from web3.middleware import geth_poa_middleware
 
+
+
+
+w3 = Web3(Web3.WebsocketProvider(node_url))
 w3.middleware_onion.inject(geth_poa_middleware, layer=0)
 
-verification_account = w3.eth.account.from_key("PUT_PRIVATE_KEY_HERE")
-weavr_contract_address = w3.toChecksumAddress("PUT_WEAVR_CONTRACT_HERE")
-participant_address = w3.toChecksumAddress("PUT_VOUCH_RECIPIENT_ADDRESS_HERE")
-weavr = w3.eth.contract(address=weavr_contract_address, abi=frabric_abi)
-weavr.handleRevert = True
+VERIFICATION_ACCOUNT = w3.eth.account.from_key("PRIVATE_KEY")
+weavr_contract_address = w3.toChecksumAddress("weavr_address")
+WEAVR = w3.eth.contract(address=weavr_contract_address, abi=frabric_abi)
+WEAVR.handleRevert = True
 
-sign_verification = {"domain": {
-    "name": "Frabric Protocol",
+SIGN_VERIFICATION = {"domain": {
+    "name": "Weavr Protocol",
     "version": "1",
-    "chainId": 4,
-    "verifyingContract": weavr.address
+    "chainId": 42161,
+    "verifyingContract": WEAVR.address
 },
-    "primaryType": 'Vouch',
+    "primaryType": 'KYCVerification',
     "types": {
         'EIP712Domain': [
             {'name': 'name', 'type': 'string'},
@@ -26,50 +32,61 @@ sign_verification = {"domain": {
             {'name': 'chainId', 'type': 'uint256'},
             {'name': 'verifyingContract', 'type': 'address'}
         ],
-        "Vouch": [
+        "KYCVerification": [
+            {"type": "uint8", "name": "participantType"},
             {"type": "address", "name": "participant"},
+            {"type": "bytes32", "name": "kyc"},
+            {"type": "uint256", "name": "nonce"}
         ]
     }
 }
 
-
-data = {
-    "participant": str(participant_address)
-}
-
-def sign(signer_account, data):
-    payload = sign_verification.copy()
+def sign_it(signer_account, data):
+    payload = SIGN_VERIFICATION.copy()
     payload['message'] = data
     payload = encode_structured_data(primitive=payload)
-    return Web3.eth.account.sign_message(payload, signer_account.privateKey)
+    return w3.eth.account.sign_message(payload, signer_account.privateKey)
+
+def submit_verification(participant_address, weavr_contract, idenHash, participantType, signature):
+    print(f"participantType: {participantType}\naddress: {participant_address}\nidentityHash: {idenHash}\nsignature: {signature}")
+    built_tx = weavr_contract.functions.approve(participantType, participant_address, idenHash, signature).call()
+    return built_tx
 
 
-l = sign(signer_account, data)
-print(l)
+def verify(signer_account, participant_address, weavr_contract, pType, idenId, nonce=0):
+    iden = w3.keccak(text=idenId)
+    signed_message = sign_it(signer_account, {
+        "participant": participant_address,
+        "participantType": pType,
+        "kyc": iden,
+        "nonce": nonce
+    })
+    idenHash = w3.toHex(iden)
+    signed_message_hash = w3.toHex(signed_message.signature)
+    reciept = submit_verification(participant_address, weavr_contract, idenHash, pType, signed_message_hash)
+    return reciept
 
-# def submit_verification(participant_address, weavr_contract, verification_signer_account):
-#     verification_hash = Web3.keccak(w3.toBytes(text=participant_address))
-#     signed_message = sign(verification_signer_account, {
-#         "participantType": 0,
-#         "participant": str(participant_address),
-#         "kyc": verification_hash,
-#         "nonce": 0
-#     })
-#     signed_message_bytes = Web3.toBytes(hexstr=signed_message.signature)
-#     built_tx = weavr_contract.functions.approve(0,
-#                                                 participant_address,
-#                                                 verification_hash,
-#                                                 signed_message_bytes).buildTransaction({
-#         "gas": 70000,
-#         "nonce": w3.eth.getTransactionCount(verification_signer_account.address)
-#     })
-#     signed_tx = verification_signer_account.signTransaction(built_tx)
-#     tx_hash = w3.eth.sendRawTransaction(signed_tx.rawTransaction)
-#     receipt = w3.eth.waitForTransactionReceipt(tx_hash)
-#     return receipt
-#
-#
-# # l = weavr.functions.governor("0x4C3D84E96EB3c7dEB30e136f5150f0D4b58C7bdB").call()
-# # print(l)
-# reciept = submit_verification(participant_address, weavr, verification_account)
-# print(reciept)
+
+def helper(participant, identityID):
+    verification_account = VERIFICATION_ACCOUNT
+    weavr = WEAVR
+    ptype = 7
+    nonce = 0
+    tx = verify(verification_account, participant, weavr, ptype, identityID, nonce)
+    return tx
+
+def extract(data):
+    iden_id = data['applicantId']
+    eth_address = data['externalUserId']
+    reviewAnswer = data['reviewResult']['reviewAnswer']
+    return iden_id, eth_address, reviewAnswer
+
+
+if __name__ == "__main__":
+    payload = json.loads(sys.argv[1])
+    iden_id, eth_address, review_answer = extract(payload)
+    if review_answer == "RED":
+        print("task complete, candidate skipped")
+    else:
+        address = w3.toChecksumAddress(participant_address)
+        helper(eth_address, iden_id)
