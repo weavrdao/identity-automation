@@ -35,15 +35,14 @@ if (require.main === module) {
         const PROVIDER = process.env.PROVIDER;
         const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
-
         const provider = ethers.providers.getDefaultProvider(PROVIDER);
         const signer = new ethers.Wallet(PRIVATE_KEY, provider);
         const response = JSON.parse(body);
+        console.log(response);
         const PARTICIPANT_ID = response['applicantId'];
         const PARTICIPANT = "0x" + response['externalUserId'];
         const status = response['reviewResult']['reviewAnswer'];
-
-        if(status === "RED"){
+        if(status !== "GREEN"){
             console.log("Not verified");
             return;
         }
