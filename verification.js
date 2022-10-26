@@ -79,8 +79,7 @@ if (require.main === module) {
         } else {
             console.log("Not verified, reverting...");
         }
-    })().catch(error => {
-        console.error(error);
-        process.exit(1);
+    })().then(error => {
+        console.log(error);
     });
 }
