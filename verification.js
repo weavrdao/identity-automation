@@ -81,5 +81,6 @@ if (require.main === module) {
         }
     })().then(error => {
         console.log(error);
+        process.exit(1);
     });
 }
