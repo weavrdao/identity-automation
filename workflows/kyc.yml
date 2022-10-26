@@ -5,10 +5,13 @@ jobs:
     name: Verify
     runs-on: ubuntu-latest
     env:
-      WEAVR_ADDRESS: "0x43240c0f5dedb375afd28206e02110e8fed8cFc0"
-      PROVIDER: "https://arbitrum-mainnet.infura.io/v3/10f965a85be14e40b1b7bb000a7be036"
+      PROD_WEAVR_ADDRESS: "0x43240c0f5dedb375afd28206e02110e8fed8cFc0"
+      DEV_WEAVR_ADDRESS: ""
+      PROD_PROVIDER: "https://arbitrum-mainnet.infura.io/v3/10f965a85be14e40b1b7bb000a7be036"
+      DEV_PROVIDER: "https://arbitrum-goerli.infura.io/v3/10f965a85be14e40b1b7bb000a7be036"
       BODY: ${{ toJson(on.webhook.outputs.body) }}
-      PRIVATE_KEY: ${{ secrets.private_key }}
+      PROD_PRIVATE_KEY: ${{ secrets.PROD_PRIVATE_KEY }}
+      DEV_PRIVATE_KEY: ${{ secrets.DEV_PRIVATE_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
