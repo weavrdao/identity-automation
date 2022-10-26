@@ -30,7 +30,7 @@ if (require.main === module) {
         const PROVIDER = process.env.PROVIDER;
         const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
-        const provider = ethers.providers.JsonRpcProvider(PROVIDER);
+        const provider = ethers.providers.getDefaultProvider(PROVIDER);
         const signer = new ethers.Wallet(PRIVATE_KEY, provider);
         const response = JSON.parse(body);
         console.log(response);
