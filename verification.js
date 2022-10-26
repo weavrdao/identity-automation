@@ -26,20 +26,34 @@ if (require.main === module) {
     (async () => {
 
         const body = process.env.BODY;
-        const WEAVR_ADDRESS = process.env.WEAVR_ADDRESS;
-        const PROVIDER = process.env.PROVIDER;
-        const PRIVATE_KEY = process.env.PRIVATE_KEY;
-
-        const provider = ethers.providers.getDefaultProvider(PROVIDER);
-        const signer = new ethers.Wallet(PRIVATE_KEY, provider);
+        const PROD_WEAVR_ADDRESS = process.env.PROD_WEAVR_ADDRESS;
+        const DEV_WEAVR_ADDRESS = process.env.DEV_WEAVR_ADDRESS;
+        const PROD_PROVIDER = process.env.PROD_PROVIDER;
+        const DEV_PROVIDER = process.env.DEV_PROVIDER;
+        const PROD_PRIVATE_KEY = process.env.PROD_PRIVATE_KEY;
+        const DEV_PRIVATE_KEY = process.env.DEV_PRIVATE_KEY;
         const response = JSON.parse(body);
         console.log(response);
         const PARTICIPANT_ID = response['applicantId'];
         const PARTICIPANT = "0x" + response['externalUserId'];
         const status = response['reviewResult']['reviewAnswer'];
+        const sandbox = response['sandboxMode'];
+        let signer, weavr_address, chain_id;
+        if(sandbox === true) {
+            const provider = new ethers.providers.getDefaultProvider(DEV_PROVIDER);
+            signer = new ethers.Wallet(DEV_PRIVATE_KEY, provider);
+            weavr_address = DEV_WEAVR_ADDRESS;
+            chain_id= 421611;
+        } else {
+            const provider = new ethers.providers.getDefaultProvider(PROD_PROVIDER);
+            signer = new ethers.Wallet(PROD_PRIVATE_KEY, provider);
+            weavr_address = PROD_WEAVR_ADDRESS;
+            chain_id= 42161;
+        }
+
 
         const abi = JSON.parse(fs.readFileSync('weavr.json', 'utf8'));
-        const weavr = new ethers.Contract(WEAVR_ADDRESS, abi, signer);
+        const weavr = new ethers.Contract(weavr_address, abi, signer);
 
         if(status === "GREEN"){
 
@@ -51,8 +65,8 @@ if (require.main === module) {
                 {
                     name: "Weavr Protocol",
                     version: "1",
-                    chainId: 42161,
-                    verifyingContract: WEAVR_ADDRESS
+                    chainId: chain_id,
+                    verifyingContract: weavr_address
                 },
                 {
                     KYCVerification: [
