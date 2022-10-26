@@ -3,12 +3,7 @@ const fs = require('fs');
 
 function sign(signer, data, signatureData) {
     let signArgs = JSON.parse(JSON.stringify(signatureData));
-    if (Object.keys(data).length === 1) {
-        signArgs[1] = { Vouch: signArgs[1].Vouch };
-    } else {
-        signArgs[1] = { KYCVerification: signArgs[1].KYCVerification };
-    }
-
+    signArgs[1] = { KYCVerification: signArgs[1].KYCVerification };
     // Shim for the fact ethers.js will change this functions names in the future
     if (signer.signTypedData) {
         return signer.signTypedData(...signArgs, data);
@@ -35,7 +30,7 @@ if (require.main === module) {
         const PROVIDER = process.env.PROVIDER;
         const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
-        const provider = ethers.providers.getDefaultProvider(PROVIDER);
+        const provider = ethers.providers.JsonRpcProvider(PROVIDER);
         const signer = new ethers.Wallet(PRIVATE_KEY, provider);
         const response = JSON.parse(body);
         console.log(response);
@@ -49,7 +44,7 @@ if (require.main === module) {
         if(status === "GREEN"){
 
 
-            const participantId = ethers.utils.id(PARTICIPANT_ID);
+            const kycHash = ethers.utils.id(PARTICIPANT_ID);
 
 
             let signatureData = [
@@ -60,9 +55,6 @@ if (require.main === module) {
                     verifyingContract: WEAVR_ADDRESS
                 },
                 {
-                    Vouch: [
-                        {type: "address", name: "participant"}
-                    ],
                     KYCVerification: [
                         {type: "uint8", name: "participantType"},
                         {type: "address", name: "participant"},
@@ -72,8 +64,8 @@ if (require.main === module) {
                 }
             ];
             const ptype = 6;
-            const signature = getSignature(signer, PARTICIPANT, ptype, participantId, signatureData);
-            const tx = await (await weavr.approve(ptype, PARTICIPANT, participantId, signature, {gasLimit: 1000000})).wait();
+            const signature = getSignature(signer, PARTICIPANT, ptype, kycHash, signatureData);
+            const tx = await (await weavr.approve(ptype, PARTICIPANT, kycHash, signature, {gasLimit: 1000000})).wait();
             console.log("Transaction receipt");
             console.log(tx);
         } else {

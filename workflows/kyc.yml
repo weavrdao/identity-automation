@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       WEAVR_ADDRESS: "0x43240c0f5dedb375afd28206e02110e8fed8cFc0"
-      PROVIDER: "wss://arbitrum-mainnet.infura.io/ws/v3/10f965a85be14e40b1b7bb000a7be036"
+      PROVIDER: "https://arbitrum-mainnet.infura.io/v3/10f965a85be14e40b1b7bb000a7be036"
       BODY: ${{ toJson(on.webhook.outputs.body) }}
       PRIVATE_KEY: ${{ secrets.private_key }}
     steps:
