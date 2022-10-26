@@ -17,12 +17,12 @@ function sign(signer, data, signatureData) {
     }
 }
 
-function getSignature(signer, participant, ptype, kycHash, nonce, signatureData) {
+function getSignature(signer, participant, ptype, kycHash, signatureData) {
     let data = {
         participant: participant,
-        participantType: participantType,
-        kyc: kycSignature,
-        nonce: nonce
+        participantType: ptype,
+        kyc: kycHash,
+        nonce: 0
     }
     return sign(signer, data, signatureData);
 }
@@ -72,7 +72,7 @@ if (require.main === module) {
                 }
             ];
             const ptype = 6;
-            const signature = await getSignature(signer, PARTICIPANT, ptype, participantId, 0, signatureData);
+            const signature = await getSignature(signer, PARTICIPANT, ptype, participantId, signatureData);
             const tx = await weavr.approve(ptype, PARTICIPANT, participantId, signature).wait();
             console.log("Transaction receipt");
             console.log(tx);
