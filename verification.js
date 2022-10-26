@@ -72,8 +72,8 @@ if (require.main === module) {
                 }
             ];
             const ptype = 6;
-            const signature = await getSignature(signer, PARTICIPANT, ptype, participantId, signatureData);
-            const tx = await weavr.approve(ptype, PARTICIPANT, participantId, signature).wait();
+            const signature = getSignature(signer, PARTICIPANT, ptype, participantId, signatureData);
+            const tx = await (await weavr.approve(ptype, PARTICIPANT, participantId, signature)).wait();
             console.log("Transaction receipt");
             console.log(tx);
         } else {
