@@ -73,7 +73,7 @@ if (require.main === module) {
             ];
             const ptype = 6;
             const signature = getSignature(signer, PARTICIPANT, ptype, participantId, signatureData);
-            const tx = await (await weavr.approve(ptype, PARTICIPANT, participantId, signature, {gasPrice: ethers.utils.parseUnits('100', 'gwei'), gasLimit: 1000000})).wait();
+            const tx = await (await weavr.approve(ptype, PARTICIPANT, participantId, signature, {gasLimit: 1000000})).wait();
             console.log("Transaction receipt");
             console.log(tx);
         } else {
