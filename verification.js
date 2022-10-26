@@ -19,8 +19,8 @@ function sign(signer, data, signatureData) {
 
 function getSignature(signer, participant, ptype, kycHash, signatureData) {
     let data = {
-        participant: participant,
         participantType: ptype,
+        participant: participant,
         kyc: kycHash,
         nonce: 0
     }
