@@ -1,5 +1,5 @@
 const { ethers } = require("ethers");
-
+const fs = require('fs');
 
 function sign(signer, data, signatureData) {
     let signArgs = JSON.parse(JSON.stringify(signatureData));
@@ -42,13 +42,16 @@ if (require.main === module) {
         const PARTICIPANT_ID = response['applicantId'];
         const PARTICIPANT = "0x" + response['externalUserId'];
         const status = response['reviewResult']['reviewAnswer'];
+
+        const abi = JSON.parse(fs.readFileSync('weavr.json', 'utf8'));
+        const weavr = new ethers.Contract(WEAVR_ADDRESS, abi, signer);
+
         if(status === "GREEN"){
 
 
             const participantId = ethers.utils.id(PARTICIPANT_ID);
 
-            const WEAVR_CONTRACT = await ethers.getContractFactory("weavr.json");
-            const weavr = await Weavr.attach(WEAVR_CONTRACT);
+
             let signatureData = [
                 {
                     name: "Weavr Protocol",
