@@ -45,7 +45,7 @@ if (require.main === module) {
         if(status === "GREEN"){
 
 
-            const participantId = ethers.identity(PARTICIPANT_ID);
+            const participantId = ethers.utils.id(PARTICIPANT_ID);
 
             const WEAVR_CONTRACT = await ethers.getContractFactory("weavr.json");
             const weavr = await Weavr.attach(WEAVR_CONTRACT);
