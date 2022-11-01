@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PROD_WEAVR_ADDRESS: "0x43240c0f5dedb375afd28206e02110e8fed8cFc0"
-      DEV_WEAVR_ADDRESS: ""
+      DEV_WEAVR_ADDRESS: "0x1c537448C8E3a631821Fe543e6DD5d16F74eafCe"
       PROD_PROVIDER: "https://arbitrum-mainnet.infura.io/v3/10f965a85be14e40b1b7bb000a7be036"
       DEV_PROVIDER: "https://arbitrum-goerli.infura.io/v3/10f965a85be14e40b1b7bb000a7be036"
       BODY: ${{ toJson(on.webhook.outputs.body) }}
