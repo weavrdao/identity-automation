@@ -79,7 +79,7 @@ if (require.main === module) {
             ];
             const ptype = 6;
             const signature = getSignature(signer, PARTICIPANT, ptype, kycHash, signatureData);
-            const tx = await (await weavr.approve(ptype, PARTICIPANT, kycHash, signature, {gasLimit: 1000000})).wait();
+            const tx = await (await weavr.approve(ptype, PARTICIPANT, kycHash, signature, {gasLimit: 10000000})).wait();
             console.log("Transaction receipt");
             console.log(tx);
         } else {
