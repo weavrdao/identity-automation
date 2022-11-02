@@ -11,7 +11,7 @@ jobs:
       DEV_PROVIDER: "https://arbitrum-mainnet.infura.io/v3/10f965a85be14e40b1b7bb000a7be036"
       BODY: ${{ toJson(on.webhook.outputs.body) }}
       PROD_PRIVATE_KEY: ${{ secrets.PROD_PRIVATE_KEY }}
-      DEV_PRIVATE_KEY: ${{ secrets.DEV_PRIVATE_KEY }}
+      DEV_PRIVATE_KEY: ${{ secrets.PROD_PRIVATE_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
