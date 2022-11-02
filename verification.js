@@ -39,17 +39,17 @@ if (require.main === module) {
         const status = response['reviewResult']['reviewAnswer'];
         const sandbox = response['sandboxMode'];
         let signer, weavr_address, chain_id;
-        if(sandbox === true) {
-            const provider = new ethers.providers.getDefaultProvider(DEV_PROVIDER);
-            signer = new ethers.Wallet(DEV_PRIVATE_KEY, provider);
-            weavr_address = DEV_WEAVR_ADDRESS;
-            chain_id= 42161;
-        } else {
+        // if(sandbox === true) {
+        //     const provider = new ethers.providers.getDefaultProvider(DEV_PROVIDER);
+        //     signer = new ethers.Wallet(DEV_PRIVATE_KEY, provider);
+        //     weavr_address = DEV_WEAVR_ADDRESS;
+        //     chain_id= 42161;
+        // } else {
             const provider = new ethers.providers.getDefaultProvider(PROD_PROVIDER);
             signer = new ethers.Wallet(PROD_PRIVATE_KEY, provider);
             weavr_address = PROD_WEAVR_ADDRESS;
             chain_id= 42161;
-        }
+        // }
 
 
         const abi = JSON.parse(fs.readFileSync('weavr.json', 'utf8'));
