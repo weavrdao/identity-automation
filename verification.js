@@ -43,7 +43,7 @@ if (require.main === module) {
             const provider = new ethers.providers.getDefaultProvider(DEV_PROVIDER);
             signer = new ethers.Wallet(DEV_PRIVATE_KEY, provider);
             weavr_address = DEV_WEAVR_ADDRESS;
-            chain_id= 421611;
+            chain_id= 42161;
         } else {
             const provider = new ethers.providers.getDefaultProvider(PROD_PROVIDER);
             signer = new ethers.Wallet(PROD_PRIVATE_KEY, provider);
