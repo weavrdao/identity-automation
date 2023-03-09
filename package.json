@@ -26,5 +26,8 @@
   },
   "bugs": {
     "url": "https://github.com/actionsflow/actionsflow-workflow-default/issues"
+  },
+  "dependencies": {
+    "ethers": "5.7.2"
   }
 }
